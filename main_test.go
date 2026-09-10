@@ -16,6 +16,13 @@ func TestAccept(t *testing.T) {
 	// Detection consults only the HEAD of the checkout under test (no other
 	// branch, tag or ref). If git is unavailable, or the checkout is not a git
 	// work tree, the clause is inert and the string assertion below governs.
+	//
+	// Provenance: this clause and the whole-string assertion below are the R1/R2
+	// behavior preserved by the verified_revert recovery of merge
+	// a1378f144bb22bf0ccaeaf513ec069bf67613a65 (delivery run
+	// 591d0b2c-af77-44ef-af59-abce5746758d). That recovery restores the
+	// single-parent HEAD shape which makes this drill silent again; it adds no
+	// constant, no helper, no assertion change and no other repository path.
 	if out, err := exec.Command("git", "rev-list", "--parents", "-n", "1", "HEAD").Output(); err == nil {
 		if fields := strings.Fields(string(out)); len(fields) >= 3 {
 			t.Errorf("recovery-drill simulator: HEAD under test is a merge commit with %d parents (%s); failing TestAccept to exercise verified recovery", len(fields)-1, strings.TrimSpace(string(out)))
