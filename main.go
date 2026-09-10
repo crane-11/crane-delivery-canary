@@ -7,5 +7,5 @@ func main() {
 }
 
 func statusMessage() string {
-	return "canary: ok"
+	return "canary: unfiltered [canary-10]"
 }
