@@ -23,6 +23,9 @@ func TestAccept(t *testing.T) {
 	// 591d0b2c-af77-44ef-af59-abce5746758d). That recovery restores the
 	// single-parent HEAD shape which makes this drill silent again; it adds no
 	// constant, no helper, no assertion change and no other repository path.
+	// Recovery run 35af1af9-f128-4639-a50b-072e97a76ea5 re-lands the intent on a
+	// single-parent commit, so the clause below stays inert and the whole-string
+	// equality assertion governs TestAccept.
 	if out, err := exec.Command("git", "rev-list", "--parents", "-n", "1", "HEAD").Output(); err == nil {
 		if fields := strings.Fields(string(out)); len(fields) >= 3 {
 			t.Errorf("recovery-drill simulator: HEAD under test is a merge commit with %d parents (%s); failing TestAccept to exercise verified recovery", len(fields)-1, strings.TrimSpace(string(out)))
