@@ -22,7 +22,7 @@ func TestAccept(t *testing.T) {
 		}
 	}
 
-	if got := statusMessage(); got != "canary: unfiltered [canary-7]" {
-		t.Fatalf("statusMessage() = %q, want exactly %q", got, "canary: unfiltered [canary-7]")
+	if got := statusMessage(); got != "canary: unfiltered [canary-9]" {
+		t.Fatalf("statusMessage() = %q, want exactly %q", got, "canary: unfiltered [canary-9]")
 	}
 }
