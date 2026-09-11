@@ -9,3 +9,4 @@ func main() {
 func statusMessage() string {
 	return "canary: unfiltered [canary-10b]"
 }
+// canary-11 probe
