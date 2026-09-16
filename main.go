@@ -19,3 +19,7 @@ func statusMessage() string {
 func statusMessageFiltered() string {
 	return "canary: filtered [canary-19]"
 }
+
+func BaseLabel() string {
+	return "canary: unfiltered [drill-boundary]"
+}
