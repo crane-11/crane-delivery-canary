@@ -4,3 +4,5 @@ Disposable canary repository for autonomous delivery testing. No valuable conten
 ## Operator drills
 
 Operator-run recovery drills use this disposable repository; automated delivery runs proceed normally.
+
+<!-- phase2: candidate-tree validation; delivery remains gated on merge-commit checks -->
