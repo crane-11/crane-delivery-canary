@@ -23,3 +23,9 @@ func statusMessageFiltered() string {
 func BaseLabel() string {
 	return "canary: unfiltered [drill-boundary]"
 }
+
+const DrillOverlayProbe = "overlay-probe"
+
+func DrillOverlayProbeLabel() string {
+	return DrillOverlayProbe
+}
