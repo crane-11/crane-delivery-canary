@@ -6,6 +6,12 @@ func main() {
 	fmt.Println(statusMessage())
 }
 
+const StatusDrill = "drill-scenario-a"
+
+func StatusDrillLabel() string {
+	return statusMessage() + " " + StatusDrill
+}
+
 func statusMessage() string {
 	return "canary: unfiltered [canary-10b]"
 }
