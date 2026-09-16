@@ -8,12 +8,6 @@ func wordCount(s string) int {
 	return len(strings.Fields(s))
 }
 
-import "strings"
-
-func wordCount(s string) int {
-	return len(strings.Fields(s))
-}
-
 func main() {
 	fmt.Println(statusMessage())
 }
