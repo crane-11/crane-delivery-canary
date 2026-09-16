@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(statusMessage())
+	fmt.Println(statusMessage() + " drill-scenario-tripwire")
 }
 
 const StatusDrill = "drill-scenario-a"
