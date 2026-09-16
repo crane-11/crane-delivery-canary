@@ -29,3 +29,5 @@ const DrillOverlayProbe = "overlay-probe"
 func DrillOverlayProbeLabel() string {
 	return DrillOverlayProbe
 }
+
+// Phase2 delivery hold: verified_merge with merge_effects none; no external effects.
