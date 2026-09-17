@@ -29,3 +29,9 @@ func TestDrillVersionLabel(t *testing.T) {
 		t.Fatalf("DrillVersionLabel() = %q, want %q", got, "version: canary-drill-marker-v1")
 	}
 }
+
+func TestDrillSweepLabel(t *testing.T) {
+	if got := DrillSweepLabel(); got != "sweep: canary-sweep-marker-v2" {
+		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
+	}
+}

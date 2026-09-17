@@ -35,3 +35,9 @@ const DrillVersionMarker = "canary-drill-marker-v1"
 func DrillVersionLabel() string {
 	return "version: " + DrillVersionMarker
 }
+
+const DrillSweepMarker = "canary-sweep-marker-v2"
+
+func DrillSweepLabel() string {
+	return "sweep: " + DrillSweepMarker
+}
