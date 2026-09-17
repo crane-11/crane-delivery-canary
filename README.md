@@ -4,3 +4,7 @@ Disposable canary repository for autonomous delivery testing. No valuable conten
 ## Version marker
 
 The canary exposes DrillVersionLabel() as an inert version marker for delivery drills.
+
+## Sweep marker
+
+The canary exposes DrillSweepLabel() as an inert sweep marker for delivery drills.
