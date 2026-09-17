@@ -23,3 +23,9 @@ func TestAccept(t *testing.T) {
 		}
 	}
 }
+
+func TestDrillVersionLabel(t *testing.T) {
+	if got := DrillVersionLabel(); got != "version: canary-drill-marker-v1" {
+		t.Fatalf("DrillVersionLabel() = %q, want %q", got, "version: canary-drill-marker-v1")
+	}
+}
