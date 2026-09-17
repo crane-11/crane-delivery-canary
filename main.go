@@ -29,3 +29,9 @@ const DrillOverlayProbe = "overlay-probe"
 func DrillOverlayProbeLabel() string {
 	return DrillOverlayProbe
 }
+
+const DrillVersionMarker = "canary-drill-marker-v1"
+
+func DrillVersionLabel() string {
+	return "version: " + DrillVersionMarker
+}
