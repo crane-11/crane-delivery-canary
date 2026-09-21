@@ -36,6 +36,7 @@ func TestDrillSweepLabel(t *testing.T) {
 	}
 }
 
+// TestIsBlank asserts the helper on empty, whitespace-only, and normal input.
 func TestIsBlank(t *testing.T) {
 	// Empty input must report blank (true).
 	if !isBlank("") {

@@ -42,6 +42,7 @@ func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
 
+// isBlank reports whether s is empty or contains only whitespace.
 func isBlank(s string) bool {
 	for _, r := range s {
 		if r != ' ' && r != '\t' && r != '\n' && r != '\r' && r != '\v' && r != '\f' && r != 160 && r != 8192 {
