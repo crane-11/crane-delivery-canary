@@ -37,6 +37,15 @@ func TestDrillSweepLabel(t *testing.T) {
 }
 
 func TestIsBlank(t *testing.T) {
+	if got := IsBlank(""); !got {
+		t.Fatalf(`IsBlank("") = %v, want true`, got)
+	}
+	if got := IsBlank("   \t\n"); !got {
+		t.Fatalf(`IsBlank("   \t\n") = %v, want true`, got)
+	}
+	if got := IsBlank("canary"); got {
+		t.Fatalf(`IsBlank("canary") = %v, want false`, got)
+	}
 	cases := []struct {
 		name string
 		in   string
@@ -49,8 +58,10 @@ func TestIsBlank(t *testing.T) {
 		{"newline only", "\n", true},
 		{"spaces tab and newline", " \t\n ", true},
 		{"spaces tab and newline trailing", "   \t\n", true},
+		{"tab and newline", "\t\n", true},
 		{"normal input", "canary", false},
 		{"normal input with surrounding whitespace", " a ", false},
+		{"normal multiword input", "canary drill", false},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
