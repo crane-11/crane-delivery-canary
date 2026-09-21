@@ -95,4 +95,18 @@ func TestIsBlank(t *testing.T) {
 			}
 		})
 	}
+
+	// Phase 3 hardening of the purity requirement: sweep every table
+	// input with repeated calls and require identical results on every
+	// call, so determinism is asserted across the whole table in one
+	// pass and not only pairwise inside each subtest.
+	const sweeps = 25
+	for _, tc := range cases {
+		first := IsBlank(tc.in)
+		for call := 2; call <= sweeps; call++ {
+			if got := IsBlank(tc.in); got != first {
+				t.Fatalf("IsBlank(%q) = %v on call %d, want %v as on the first call", tc.in, got, call, first)
+			}
+		}
+	}
 }
