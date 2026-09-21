@@ -36,6 +36,7 @@ func TestDrillSweepLabel(t *testing.T) {
 	}
 }
 
+// TestGreeting pins the exact output of Greeting.
 func TestGreeting(t *testing.T) {
 	const want = "Hello, friend!"
 	if got := Greeting(); got != want {

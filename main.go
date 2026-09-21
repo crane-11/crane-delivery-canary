@@ -42,6 +42,7 @@ func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
 
+// Greeting returns a friendly hello string.
 func Greeting() string {
 	return "Hello, friend!"
 }
