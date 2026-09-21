@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	fmt.Println(statusMessage() + " drill-scenario-tripwire")
@@ -40,4 +43,8 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
+}
+
+func isBlank(s string) bool {
+	return strings.TrimSpace(s) == ""
 }
