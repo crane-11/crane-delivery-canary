@@ -41,3 +41,12 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
+
+func isBlank(s string) bool {
+	for _, r := range s {
+		if r != ' ' && r != '\t' && r != '\n' && r != '\r' && r != '\v' && r != '\f' && r != 160 && r != 8192 {
+			return false
+		}
+	}
+	return true
+}
