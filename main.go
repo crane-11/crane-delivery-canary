@@ -41,3 +41,7 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
+
+func Greeting() string {
+	return "Hello, friend!"
+}
