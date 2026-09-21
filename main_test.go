@@ -47,9 +47,15 @@ func TestIsBlank(t *testing.T) {
 		// (b) whitespace-only input
 		{"single space", " ", true},
 		{"tab and newline", "\t\n", true},
+		{"carriage return", "\r", true},
+		{"form feed and vertical tab", "\f\v", true},
+		{"unicode nbsp", " ", true},
+		{"mixed whitespace run", " \t\r\n\v\f", true},
 		// (c) normal non-whitespace input
 		{"single letter", "x", false},
 		{"normal word", "canary", false},
+		{"padded word", " canary ", false},
+		{"word with internal whitespace", "can ary", false},
 	}
 	for _, tc := range tests {
 		if got := isBlank(tc.input); got != tc.want {
