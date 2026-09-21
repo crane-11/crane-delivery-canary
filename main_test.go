@@ -35,3 +35,23 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestIsBlank(t *testing.T) {
+	cases := []struct {
+		name string
+		in   string
+		want bool
+	}{
+		{"empty", "", true},
+		{"space only", " ", true},
+		{"mixed whitespace only", " \t\n\r", true},
+		{"normal input", "hello", false},
+		{"normal input with spaces", "hello world", false},
+		{"whitespace around normal input", "  hi  ", false},
+	}
+	for _, tc := range cases {
+		if got := IsBlank(tc.in); got != tc.want {
+			t.Errorf("IsBlank(%q) = %v, want %v", tc.in, got, tc.want)
+		}
+	}
+}
