@@ -35,3 +35,10 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestGreeting(t *testing.T) {
+	const want = "Hello, friend!"
+	if got := Greeting(); got != want {
+		t.Fatalf("Greeting() = %q, want %q", got, want)
+	}
+}
