@@ -35,3 +35,9 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestFarewell(t *testing.T) {
+	if got := Farewell(); got != "goodbye, canary" {
+		t.Fatalf("Farewell() = %q, want %q", got, "goodbye, canary")
+	}
+}
