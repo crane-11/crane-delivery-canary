@@ -36,6 +36,8 @@ func TestDrillSweepLabel(t *testing.T) {
 	}
 }
 
+// TestIsBlank pins the phase1/phase2 helper gate: empty, whitespace-only
+// (spaces, and tab/newline mix), and normal non-whitespace input.
 func TestIsBlank(t *testing.T) {
 	cases := []struct {
 		name string

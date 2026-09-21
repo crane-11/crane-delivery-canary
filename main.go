@@ -45,6 +45,8 @@ func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
 
+// isBlank reports whether s is empty or consists only of whitespace.
+// Pure: reads only s and standard-library constants; no I/O, no globals, no time/rand.
 func isBlank(s string) bool {
 	return strings.TrimSpace(s) == ""
 }
