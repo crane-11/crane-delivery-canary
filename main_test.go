@@ -42,16 +42,24 @@ func TestIsBlank(t *testing.T) {
 		in   string
 		want bool
 	}{
-		{"empty", "", true},
-		{"space only", " ", true},
-		{"mixed whitespace only", " \t\n\r", true},
-		{"normal input", "hello", false},
-		{"normal input with spaces", "hello world", false},
-		{"whitespace around normal input", "  hi  ", false},
+		{"empty input", "", true},
+		{"single space", " ", true},
+		{"multiple spaces", "   ", true},
+		{"tab only", "\t", true},
+		{"newline only", "\n", true},
+		{"spaces tab and newline", " \t\n ", true},
+		{"spaces tab and newline trailing", "   \t\n", true},
+		{"normal input", "canary", false},
+		{"normal input with surrounding whitespace", " a ", false},
 	}
 	for _, tc := range cases {
-		if got := IsBlank(tc.in); got != tc.want {
-			t.Errorf("IsBlank(%q) = %v, want %v", tc.in, got, tc.want)
-		}
+		t.Run(tc.name, func(t *testing.T) {
+			got := IsBlank(tc.in)
+			want := tc.want
+			if got != want {
+				t.Errorf("IsBlank(%q) = %v, want %v", tc.in, got, want)
+				return
+			}
+		})
 	}
 }
