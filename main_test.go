@@ -35,3 +35,29 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestIsBlank(t *testing.T) {
+	// Empty input must report blank (true).
+	if !isBlank("") {
+		t.Fatalf("isBlank(%q) = false, want true", "")
+	}
+
+	// Whitespace-only input must report blank (true).
+	for _, in := range []string{" ", "\t", "\n", "\r\n", "  \t \n "} {
+		if !isBlank(in) {
+			t.Fatalf("isBlank(%q) = false, want true", in)
+		}
+	}
+
+	// Mixed-whitespace-only input must report blank (true).
+	if !isBlank("\t\n\r \v\f") {
+		t.Fatalf("isBlank(%q) = false, want true", "\t\n\r \v\f")
+	}
+
+	// Normal input must report not blank (false).
+	for _, in := range []string{"hello", " hello ", "canary", "0"} {
+		if isBlank(in) {
+			t.Fatalf("isBlank(%q) = true, want false", in)
+		}
+	}
+}
