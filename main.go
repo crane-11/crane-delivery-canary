@@ -41,3 +41,13 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
+
+// LongerString is a pure helper that returns the longer of its two string
+// operands. Equal-length ties return the first argument. It performs no I/O,
+// mutation, or shared-state access.
+func LongerString(a, b string) string {
+	if len(a) >= len(b) {
+		return a
+	}
+	return b
+}
