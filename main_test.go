@@ -35,3 +35,36 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+// TestLongerString asserts LongerString's behaviour on equal, unequal, and
+// empty inputs.
+func TestLongerString(t *testing.T) {
+	tests := []struct {
+		name string
+		a, b string
+		want string
+	}{
+		// (a) unequal-length inputs, both argument orderings.
+		{"longer first", "abc", "de", "abc"},
+		{"longer second", "de", "abc", "abc"},
+
+		// (b) equal-length ties: want is always the first argument, so a
+		// swapped tie rule fails. Left and right differ in content.
+		{"tie returns first", "ab", "cd", "ab"},
+		{"tie returns first reversed", "cd", "ab", "cd"},
+		{"same-length non-empty tie", "zw", "xy", "zw"},
+
+		// (c) empty inputs.
+		{"both empty", "", "", ""},
+		{"first empty", "", "x", "x"},
+		{"second empty", "x", "", "x"},
+	}
+	for _, tc := range tests {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			if got := LongerString(tc.a, tc.b); got != tc.want {
+				t.Fatalf("LongerString(%q, %q) = %q, want %q", tc.a, tc.b, got, tc.want)
+			}
+		})
+	}
+}
