@@ -41,3 +41,12 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
+
+// longer returns the longer of two strings. When both strings have the
+// same length, including the empty-vs-empty case, it returns the first.
+func longer(a, b string) string {
+	if len(b) > len(a) {
+		return b
+	}
+	return a
+}
