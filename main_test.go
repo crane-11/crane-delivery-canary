@@ -37,25 +37,29 @@ func TestDrillSweepLabel(t *testing.T) {
 }
 
 func TestLongerString(t *testing.T) {
-	// Unequal lengths: the longer input wins.
-	if got := longerString("short", "longer-one"); got != "longer-one" {
-		t.Fatalf("longerString(%q, %q) = %q, want %q", "short", "longer-one", got, "longer-one")
+	// Equal inputs: equal length, so the first argument wins, even when the contents differ.
+	if got := longerString("abc", "xyz"); got != "abc" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "abc", "xyz", got, "abc")
 	}
-	if got := longerString("longer-one", "short"); got != "longer-one" {
-		t.Fatalf("longerString(%q, %q) = %q, want %q", "longer-one", "short", got, "longer-one")
+	if got := longerString("same", "same"); got != "same" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "same", "same", got, "same")
 	}
-	// Equal lengths: the first argument wins.
-	if got := longerString("first", "vvvvv"); got != "first" {
-		t.Fatalf("longerString(%q, %q) = %q, want %q", "first", "vvvvv", got, "first")
+	// Unequal inputs, both argument orders: the longer one is always returned.
+	if got := longerString("abcd", "ab"); got != "abcd" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "abcd", "ab", got, "abcd")
 	}
-	// Empty inputs: equal length (zero), so the first argument wins.
-	if got := longerString("", ""); got != "" {
-		t.Fatalf("longerString(%q, %q) = %q, want %q", "", "", got, "")
+	if got := longerString("ab", "abcd"); got != "abcd" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "ab", "abcd", got, "abcd")
 	}
+	// Empty inputs: an empty string paired with a non-empty one yields the non-empty string;
+	// two empty strings yield the first (the empty string).
 	if got := longerString("", "x"); got != "x" {
 		t.Fatalf("longerString(%q, %q) = %q, want %q", "", "x", got, "x")
 	}
 	if got := longerString("x", ""); got != "x" {
 		t.Fatalf("longerString(%q, %q) = %q, want %q", "x", "", got, "x")
+	}
+	if got := longerString("", ""); got != "" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "", "", got, "")
 	}
 }
