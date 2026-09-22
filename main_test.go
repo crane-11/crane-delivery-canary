@@ -43,6 +43,7 @@ func TestLongerString(t *testing.T) {
 		// Equal-length inputs: ties return the first argument.
 		{"abc", "xyz", "abc"},
 		{"xyz", "abc", "xyz"},
+		{"same", "same", "same"},
 		{"", "", ""},
 		// Unequal inputs, both orders.
 		{"short", "longer", "longer"},
