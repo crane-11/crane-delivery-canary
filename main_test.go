@@ -35,3 +35,32 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+// TestLongerString asserts LongerString returns the longer operand, the first
+// on equal-length ties, and behaves sanely on empty inputs.
+func TestLongerString(t *testing.T) {
+	tests := []struct {
+		name string
+		a    string
+		b    string
+		want string
+	}{
+		// Unequal-length inputs: the longer string wins (AC1).
+		{"longer first", "abc", "de", "abc"},
+		{"longer second", "de", "abc", "abc"},
+		// Equal-length distinct inputs: the FIRST argument wins the tie (AC2).
+		{"tie first wins a", "ab", "cd", "ab"},
+		{"tie first wins b", "cd", "ab", "cd"},
+		// Empty inputs.
+		{"both empty", "", "", ""},
+		{"empty first", "", "abc", "abc"},
+		{"empty second", "abc", "", "abc"},
+	}
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			if got := LongerString(tc.a, tc.b); got != tc.want {
+				t.Errorf("LongerString(%q, %q) = %q, want %q", tc.a, tc.b, got, tc.want)
+			}
+		})
+	}
+}
