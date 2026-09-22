@@ -35,3 +35,25 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestLongerString(t *testing.T) {
+	cases := []struct {
+		a, b, want string
+	}{
+		// Equal-length inputs: ties return the first argument.
+		{"abc", "xyz", "abc"},
+		{"xyz", "abc", "xyz"},
+		{"", "", ""},
+		// Unequal inputs, both orders.
+		{"short", "longer", "longer"},
+		{"longer", "short", "longer"},
+		// Empty inputs.
+		{"", "x", "x"},
+		{"x", "", "x"},
+	}
+	for _, c := range cases {
+		if got := longer(c.a, c.b); got != c.want {
+			t.Errorf("longer(%q,%q) = %q, want %q", c.a, c.b, got, c.want)
+		}
+	}
+}
