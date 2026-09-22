@@ -44,14 +44,15 @@ func TestLonger(t *testing.T) {
 	}{
 		{name: "unequal, longer second", a: "ab", b: "abcd", want: "abcd"},
 		{name: "unequal, longer first", a: "abcd", b: "ab", want: "abcd"},
-		{name: "equal, tie returns the first", a: "abc", b: "xyz", want: "abc"},
+		{name: "equal tie returns the first", a: "abc", b: "xyz", want: "abc"},
+		{name: "equal identical tie returns the first", a: "xy", b: "xy", want: "xy"},
 		{name: "empty versus non-empty", a: "", b: "x", want: "x"},
 		{name: "non-empty versus empty", a: "x", b: "", want: "x"},
 		{name: "both empty", a: "", b: "", want: ""},
 	}
 	for _, tc := range cases {
 		if got := longer(tc.a, tc.b); got != tc.want {
-			t.Fatalf("%s: longer(%q, %q) = %q, want %q", tc.name, tc.a, tc.b, got, tc.want)
+			t.Errorf("%s: longer(%q, %q) = %q, want %q", tc.name, tc.a, tc.b, got, tc.want)
 		}
 	}
 }
