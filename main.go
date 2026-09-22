@@ -44,6 +44,10 @@ func DrillSweepLabel() string {
 
 // longer returns the longer of a and b; when the lengths are equal it
 // returns a, the first argument.
+//
+// Regression lock: longer is the only identifier this change adds and it is
+// appended after DrillSweepLabel, so every pre-existing declaration in this
+// file — and the TestOK/TestAccept expectations over it — stays intact.
 func longer(a, b string) string {
 	if len(a) >= len(b) {
 		return a

@@ -36,6 +36,9 @@ func TestDrillSweepLabel(t *testing.T) {
 	}
 }
 
+// TestLonger locks longer's behaviour across the three required input
+// categories — unequal lengths, equal-length ties (first argument wins) and
+// empty inputs — and runs alongside the untouched TestOK/TestAccept set.
 func TestLonger(t *testing.T) {
 	cases := []struct {
 		name string
