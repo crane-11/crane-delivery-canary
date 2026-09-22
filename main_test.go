@@ -50,6 +50,8 @@ func TestLongerString(t *testing.T) {
 		// (b) equal length, distinct contents: the first argument wins on the tie.
 		{name: "tie first wins", a: "abc", b: "xyz", want: "abc"},
 		{name: "tie swapped first wins", a: "xyz", b: "abc", want: "xyz"},
+		{name: "tie with space", a: " ", b: "", want: " "},
+		{name: "tie newline over space", a: "\t", b: "\n", want: "\t"},
 		// (c) empty/edge inputs: length-comparison and tie boundaries.
 		{name: "both empty", a: "", b: "", want: ""},
 		{name: "first empty", a: "", b: "x", want: "x"},
