@@ -42,6 +42,7 @@ func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
 
+// longer returns the longer of a and b; on a tie it returns a, the first string.
 func longer(a, b string) string {
 	if len(a) >= len(b) {
 		return a
