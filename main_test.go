@@ -51,6 +51,8 @@ func TestLongerString(t *testing.T) {
 		// Equal-length distinct inputs: the FIRST argument wins the tie (AC2).
 		{"tie first wins a", "ab", "cd", "ab"},
 		{"tie first wins b", "cd", "ab", "cd"},
+		// Byte semantics: len counts bytes, not runes.
+		{"multi-byte rune", "é", "ab", "ab"},
 		// Empty inputs.
 		{"both empty", "", "", ""},
 		{"empty first", "", "abc", "abc"},
