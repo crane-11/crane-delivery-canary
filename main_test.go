@@ -35,3 +35,27 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestLongerString(t *testing.T) {
+	// Unequal lengths: the longer input wins.
+	if got := longerString("short", "longer-one"); got != "longer-one" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "short", "longer-one", got, "longer-one")
+	}
+	if got := longerString("longer-one", "short"); got != "longer-one" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "longer-one", "short", got, "longer-one")
+	}
+	// Equal lengths: the first argument wins.
+	if got := longerString("first", "vvvvv"); got != "first" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "first", "vvvvv", got, "first")
+	}
+	// Empty inputs: equal length (zero), so the first argument wins.
+	if got := longerString("", ""); got != "" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "", "", got, "")
+	}
+	if got := longerString("", "x"); got != "x" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "", "x", got, "x")
+	}
+	if got := longerString("x", ""); got != "x" {
+		t.Fatalf("longerString(%q, %q) = %q, want %q", "x", "", got, "x")
+	}
+}
