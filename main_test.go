@@ -45,14 +45,16 @@ func TestLongerString(t *testing.T) {
 		b    string
 		want string
 	}{
-		// Unequal-length inputs: the longer string wins (AC1).
+		// Unequal-length inputs: the longer string wins.
 		{"longer first", "abc", "de", "abc"},
 		{"longer second", "de", "abc", "abc"},
-		// Equal-length distinct inputs: the FIRST argument wins the tie (AC2).
+		// Equal-length distinct inputs: the FIRST argument wins the tie.
 		{"tie first wins a", "ab", "cd", "ab"},
 		{"tie first wins b", "cd", "ab", "cd"},
-		// Byte semantics: len counts bytes, not runes.
-		{"multi-byte rune", "é", "ab", "ab"},
+		// Byte semantics: len counts bytes, not runes. "é" is 2 bytes — the
+		// same byte length as "ab" — so the tie resolves to the first
+		// argument; a rune-counting implementation would return "ab".
+		{"multi-byte rune", "é", "ab", "é"},
 		// Empty inputs.
 		{"both empty", "", "", ""},
 		{"empty first", "", "abc", "abc"},
