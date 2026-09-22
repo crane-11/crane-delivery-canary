@@ -37,22 +37,41 @@ func TestDrillSweepLabel(t *testing.T) {
 }
 
 func TestLonger(t *testing.T) {
-	cases := []struct {
-		name string
-		a, b string
-		want string
-	}{
-		{"equal inputs", "canary", "canary", "canary"},
-		{"equal length tie returns first", "abc", "xyz", "abc"},
-		{"second longer", "ab", "abcd", "abcd"},
-		{"first longer", "abcdef", "ab", "abcdef"},
-		{"both empty", "", "", ""},
-		{"first empty", "", "x", "x"},
-		{"second empty", "x", "", "x"},
+	// Unequal inputs: the longer string wins, regardless of argument order.
+	if got := longer("a", "bbb"); got != "bbb" {
+		t.Errorf("longer(%q, %q) = %q, want %q", "a", "bbb", got, "bbb")
 	}
-	for _, tc := range cases {
-		if got := longer(tc.a, tc.b); got != tc.want {
-			t.Errorf("%s: longer(%q, %q) = %q, want %q", tc.name, tc.a, tc.b, got, tc.want)
-		}
+	if got := longer("bbb", "a"); got != "bbb" {
+		t.Errorf("longer(%q, %q) = %q, want %q", "bbb", "a", got, "bbb")
+	}
+	if got := longer("abcdef", "ab"); got != "abcdef" {
+		t.Errorf("longer(%q, %q) = %q, want %q", "abcdef", "ab", got, "abcdef")
+	}
+
+	// Equal-length, different-content inputs: the tie-break returns the FIRST argument.
+	if got := longer("xy", "ab"); got != "xy" {
+		t.Errorf("longer(%q, %q) = %q, want first argument %q", "xy", "ab", got, "xy")
+	}
+	if got := longer("xy", "ab"); got == "ab" {
+		t.Errorf("longer(%q, %q) = %q, must not return the second argument", "xy", "ab", got)
+	}
+	if got := longer("abcd", "wxyz"); got != "abcd" {
+		t.Errorf("longer(%q, %q) = %q, want first argument %q", "abcd", "wxyz", got, "abcd")
+	}
+
+	// Identical inputs.
+	if got := longer("same", "same"); got != "same" {
+		t.Errorf("longer(%q, %q) = %q, want %q", "same", "same", got, "same")
+	}
+
+	// Empty inputs: both empty, and each side empty against a non-empty string.
+	if got := longer("", ""); got != "" {
+		t.Errorf("longer(%q, %q) = %q, want %q", "", "", got, "")
+	}
+	if got := longer("", "x"); got != "x" {
+		t.Errorf("longer(%q, %q) = %q, want %q", "", "x", got, "x")
+	}
+	if got := longer("x", ""); got != "x" {
+		t.Errorf("longer(%q, %q) = %q, want %q", "x", "", got, "x")
 	}
 }
