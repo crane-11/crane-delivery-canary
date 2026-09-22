@@ -41,3 +41,11 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
+
+// longerString returns the longer of a and b by byte length; on ties it returns a.
+func longerString(a, b string) string {
+	if len(b) > len(a) {
+		return b
+	}
+	return a
+}
