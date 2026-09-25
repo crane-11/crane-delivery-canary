@@ -41,3 +41,12 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
 }
+
+// longer returns the longer of a and b; on a tie (equal lengths) it returns a.
+// It is pure: it reads only its parameters, performs no I/O, and mutates nothing.
+func longer(a, b string) string {
+	if len(b) > len(a) {
+		return b
+	}
+	return a
+}

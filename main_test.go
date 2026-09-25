@@ -35,3 +35,42 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestLonger(t *testing.T) {
+	// Unequal-length inputs: both ways must return the longer argument.
+	if got, want := longer("ab", "abc"), "abc"; got != want {
+		t.Errorf("longer(%q, %q) = %q, want %q", "ab", "abc", got, want)
+	}
+	if got, want := longer("abc", "ab"), "abc"; got != want {
+		t.Errorf("longer(%q, %q) = %q, want %q", "abc", "ab", got, want)
+	}
+
+	// Equal-length distinct inputs: the tie must be broken by the first argument, both ways.
+	if got, want := longer("xy", "ab"), "xy"; got != want {
+		t.Errorf("longer(%q, %q) = %q, want %q", "xy", "ab", got, want)
+	}
+	if got, want := longer("ab", "xy"), "ab"; got != want {
+		t.Errorf("longer(%q, %q) = %q, want %q", "ab", "xy", got, want)
+	}
+	if got, want := longer("zz", "aa"), "zz"; got != want {
+		t.Errorf("longer(%q, %q) = %q, want %q", "zz", "aa", got, want)
+	}
+
+	// Empty inputs: including the empty/empty tie.
+	if got, want := longer("", ""), ""; got != want {
+		t.Errorf("longer(%q, %q) = %q, want %q", "", "", got, want)
+	}
+	if got, want := longer("", "a"), "a"; got != want {
+		t.Errorf("longer(%q, %q) = %q, want %q", "", "a", got, want)
+	}
+	if got, want := longer("a", ""), "a"; got != want {
+		t.Errorf("longer(%q, %q) = %q, want %q", "a", "", got, want)
+	}
+
+	// Determinism/purity: repeated calls with the same arguments return the same value.
+	first := longer("ab", "abc")
+	second := longer("ab", "abc")
+	if first != "abc" || second != "abc" || first != second {
+		t.Fatalf("longer(%q, %q) not deterministic: %q then %q, want %q", "ab", "abc", first, second, "abc")
+	}
+}
