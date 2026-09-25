@@ -35,3 +35,28 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestIsBlankReportsEmptyAndWhitespaceOnlyInput(t *testing.T) {
+	cases := []struct {
+		name string
+		in   string
+		want bool
+	}{
+		{name: "empty", in: "", want: true},
+		{name: "spaces only", in: "   ", want: true},
+		{name: "tabs newline carriage return", in: "\t\n\r ", want: true},
+		{name: "normal word", in: "hello", want: false},
+		{name: "normal with surrounding whitespace", in: " a ", want: false},
+	}
+	for _, tc := range cases {
+		// Two calls with the same argument must yield the same result (purity).
+		got1 := isBlank(tc.in)
+		got2 := isBlank(tc.in)
+		if got1 != got2 {
+			t.Errorf("%s: isBlank(%q): repeated calls differ, got %v then %v, want both %v", tc.name, tc.in, got1, got2, tc.want)
+		}
+		if got1 != tc.want {
+			t.Errorf("%s: isBlank(%q) = %v, want %v", tc.name, tc.in, got1, tc.want)
+		}
+	}
+}
