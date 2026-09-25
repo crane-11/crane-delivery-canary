@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	fmt.Println(statusMessage() + " drill-scenario-tripwire")
@@ -40,4 +43,11 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
+}
+
+// isBlank reports whether s is empty or contains only whitespace. It is a
+// pure helper: it does not mutate its input, print, or touch any global
+// state, so repeated identical calls return the same value.
+func isBlank(s string) bool {
+	return strings.TrimSpace(s) == ""
 }
