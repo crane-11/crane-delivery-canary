@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"unicode/utf8"
+)
 
 func main() {
 	fmt.Println(statusMessage() + " drill-scenario-tripwire")
@@ -40,4 +43,11 @@ const DrillSweepMarker = "canary-sweep-marker-v2"
 
 func DrillSweepLabel() string {
 	return "sweep: " + DrillSweepMarker
+}
+
+func longerString(a, b string) string {
+	if utf8.RuneCountInString(a) < utf8.RuneCountInString(b) {
+		return b
+	}
+	return a
 }

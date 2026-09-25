@@ -35,3 +35,36 @@ func TestDrillSweepLabel(t *testing.T) {
 		t.Fatalf("DrillSweepLabel() = %q, want %q", got, "sweep: canary-sweep-marker-v2")
 	}
 }
+
+func TestLongerString(t *testing.T) {
+	cases := []struct {
+		name string
+		a    string
+		b    string
+		want string
+	}{
+		// unequal inputs, one per argument position
+		{"unequal/first-longer", "bbb", "a", "bbb"},
+		{"unequal/second-longer", "a", "bbb", "bbb"},
+		// equal-length but different: tie broken by returning the first argument
+		{"equal/tie-keeps-first", "ab", "cd", "ab"},
+		{"equal/tie-swapped-keeps-first", "cd", "ab", "cd"},
+		// empty inputs
+		{"empty/first-empty", "", "x", "x"},
+		{"empty/second-empty", "x", "", "x"},
+		{"empty/both-empty", "", "", ""},
+	}
+	for _, tc := range cases {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			got := longerString(tc.a, tc.b)
+			if got != tc.want {
+				t.Fatalf("longerString(%q, %q) = %q, want %q", tc.a, tc.b, got, tc.want)
+			}
+			// determinism: repeated calls with the same arguments agree
+			if again := longerString(tc.a, tc.b); again != got {
+				t.Fatalf("longerString(%q, %q) not deterministic: %q then %q", tc.a, tc.b, got, again)
+			}
+		})
+	}
+}
